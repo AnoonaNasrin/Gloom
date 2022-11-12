@@ -1,0 +1,30 @@
+#navbar {
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    background-color: green;
+    padding: 0 10px;
+}
+
+.h2Chat {
+    display: flex;
+    align-self: center;
+    color: aliceblue;
+
+}
+
+#profile-menu {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    position: relative;
+    cursor: pointer;
+
+}
+
+.navp {
+    display: flex;
+    align-self: center;
+    color: aqua;
+}

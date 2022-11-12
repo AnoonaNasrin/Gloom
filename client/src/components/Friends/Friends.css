@@ -1,0 +1,63 @@
+.ch_f {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.ch_f > h1 {
+  text-decoration: none;
+  color: rgb(20, 118, 20)
+}
+
+.f_r {
+  width: 50vw;
+}
+
+.cs_f {
+  margin-top: 3rem;
+  width: 50vw;
+  padding: 1rem 2rem;
+}
+
+.main_s_f {
+  display: flex;
+}
+
+.fr_img > img {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+}
+
+.fr_container {
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.fr_details > .heading {
+  font-weight: 700;
+  font-size: large;
+}
+
+.fr_details > .message {
+  margin-left: 0.5rem;
+  opacity: 0.5;
+}
+
+.f_r_box {
+  margin: 4rem 3rem;
+}
+
+.fr_action {
+  margin-top: 0.3rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.fr_heading {
+  color: green;
+  text-align: center;
+  font-weight: 100;
+  text-decoration: none;
+}
