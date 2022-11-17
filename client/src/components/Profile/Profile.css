@@ -642,7 +642,7 @@ textarea.form-control {
 
 .btn-primary {
   color: #fff;
-  border-color: #5e72e4;
+  border-color: #cbccd0;
   background-color: #5e72e4;
   box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
 }
@@ -1094,14 +1094,14 @@ button.bg-secondary:focus {
 }
 
 .bg-default {
-  background-color: #172b4d !important;
+  background-color: hsl(132, 54%, 20%) !important;
 }
 
 a.bg-default:hover,
 a.bg-default:focus,
 button.bg-default:hover,
 button.bg-default:focus {
-  background-color: #0b1526 !important;
+  background-color: #0b4a30 !important;
 }
 
 .bg-white {
@@ -1178,7 +1178,7 @@ button.bg-white:focus {
 
 .shadow,
 .card-profile-image img {
-  box-shadow: 0 0 2rem 0 rgba(136, 152, 170, .15) !important;
+  box-shadow: 0 0 2rem 0 rgba(52, 128, 82, 0.15) !important;
 }
 
 .m-0 {
@@ -1394,11 +1394,11 @@ button.bg-white:focus {
 }
 
 .bg-gradient-default {
-  background: linear-gradient(87deg, #172b4d 0, #1a174d 100%) !important;
+  background: linear-gradient(87deg, #1b5315 0, #1d6128 100%) !important;
 }
 
 .bg-gradient-default {
-  background: linear-gradient(87deg, #172b4d 0, #1a174d 100%) !important;
+  background: linear-gradient(87deg, #174d36 0, #1a563b 100%) !important;
 }
 
 @keyframes floating-lg {
@@ -1664,7 +1664,7 @@ a.text-white:focus {
 .frm-control-label {
   font-size: .875rem;
   font-weight: 600;
-  color: #525f7f;
+  color: #e2e7f4;
 }
 
 .frm-control {
@@ -1758,8 +1758,8 @@ textarea[resize='horizontal'] {
 }
 
 .focused .input-group-text {
-  color: #8898aa;
-  border-color: rgba(50, 151, 211, .25);
+  color: #419378;
+  border-color: rgba(43, 173, 138, 0.25);
   background-color: #fff;
 }
 

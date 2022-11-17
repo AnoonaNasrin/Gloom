@@ -9,7 +9,7 @@
 .h2Chat {
     display: flex;
     align-self: center;
-    color: aliceblue;
+    color: rgb(45, 146, 84);
 
 }
 
@@ -26,5 +26,5 @@
 .navp {
     display: flex;
     align-self: center;
-    color: aqua;
+    color: rgb(27, 138, 49);
 }

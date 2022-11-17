@@ -19,8 +19,9 @@ mongoose.connect(uri, (err) => {
 });
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true })); // decoding data from url coming by post request //
-app.use(bodyParser.json()); // json data will be transfer to req.body //
+app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: true, limit: "50mb", parameterLimit: 1000000 })); // decoding data from url coming by post request //
+app.use(bodyParser.json({ limit: "50mb" })); // json data will be transfer to req.body //
 app.use(router);
 
 SocketServer(server);

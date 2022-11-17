@@ -21,6 +21,8 @@ import MailIcon from '@mui/icons-material/Mail';
 
 const drawerWidth = 240;
 
+const user = JSON.parse(localStorage.getItem("user"))
+
 const openedMixin = (theme) => ({
     width: drawerWidth,
     transition: theme.transitions.create('width', {
@@ -102,7 +104,7 @@ export default function Navbar({ children }) {
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar position="fixed" open={open}>
-                <Toolbar>
+                <Toolbar style={{background:"#4fa55d"}}>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -115,8 +117,8 @@ export default function Navbar({ children }) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Mini variant drawer
+                    <Typography  variant="h6" noWrap component="div">
+                        GLOOM
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -128,7 +130,7 @@ export default function Navbar({ children }) {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    {['Profile', 'Chat', 'Bonding', 'Friends'].map((text, index) => (
                         <ListItem key={text} disablePadding sx={{ display: 'block' }}>
                             <ListItemButton
                                 sx={{
@@ -152,7 +154,7 @@ export default function Navbar({ children }) {
                     ))}
                 </List>
                 <Divider />
-                <List>
+                {/* <List>
                     {['All mail', 'Trash', 'Spam'].map((text, index) => (
                         <ListItem key={text} disablePadding sx={{ display: 'block' }}>
                             <ListItemButton
@@ -175,7 +177,7 @@ export default function Navbar({ children }) {
                             </ListItemButton>
                         </ListItem>
                     ))}
-                </List>
+                </List> */}
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
                 <DrawerHeader />

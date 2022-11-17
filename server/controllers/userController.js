@@ -1,5 +1,6 @@
 const userModel = require("../models/userModel");
 const mongoose = require("mongoose")
+const fs = require('fs')
 const ObjectId = mongoose.Types.ObjectId;
 const multer = require('multer')
 
@@ -26,11 +27,34 @@ const upload = multer({
 })
 
 exports.uploadImage = upload.single('photo')
-exports.upload = (req, res) => {
-    console.log(req.file);
-    res.status(200).json({
-        success: "success"
-    })
+exports.upload = async (req, res) => {
+    try {
+        const userId = req.body.userId
+        const user = await userModel.findOne({ _id: userId })
+        fs.readFile('public/' + user.avatar, (err) => {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            fs.unlinkSync('public/' + user.avatar)
+        })
+        const avatar = await userModel.updateOne({ _id: userId }, { $set: { avatar: req.file.filename } })
+        res.json({ status: true })
+    } catch (e) {
+        console.log(e);
+        res.json({ message: e.message, status: false })
+    }
+
+}
+
+exports.requestUserImage = async (req, res) => {
+    try {
+        const userId = req.params.userId
+        const user = await userModel.findOne({ _id: userId })
+        res.json({ status: true, image: user.avatar })
+    } catch (e) {
+        res.json({ message: e.message, status: false, image: null })
+    }
 }
 
 
@@ -112,7 +136,6 @@ exports.friendBlock = async (req, res) => {
                 _id: 0
             }
         }])
-        console.log(friend);
 
         const block = await userModel.updateOne({ _id: userId, "friends.user": friendId }, { $set: { "friends.$.blocked": !friend[0].blocked } })
 
@@ -157,10 +180,12 @@ exports.findBlock = async (req, res) => {
             }
         }])
 
+        console.log(isBlock);
+
         res.json({ status: true, block: isBlock[0].blocked })
 
     } catch (e) {
-        
+
         res.json({ status: false, message: e.message })
     }
 }

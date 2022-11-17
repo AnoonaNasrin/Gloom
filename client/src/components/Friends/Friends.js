@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Navbar from "../Navbar/Navbar";
 import SingleFriendItem from "./component/SingleFriendItem";
 
 import "./Friends.css";
@@ -46,92 +47,96 @@ function Friends(props) {
   }, []);
 
   return (
-    <div className="main__chatlist mc ">
-      <div className="ch_f">
-        <h1>Find your Bond</h1>
-      </div>
-      <div className="main_s_f">
-        <div className="cs_f">
-          <div className="chatList__search">
-            <div className="search_wrap">
-              <input
-                type="text"
-                placeholder="Search Here"
-                value={searchText}
-                onChange={(e) => {
-                  setSearchText(e.target.value);
-                  props.socket.emit("search-user", e.target.value, user._id);
-                }}
-                required
-              />
-              <button className="search-btn">
-                <i style={{ color: "darkGreen" }} className="fa fa-search"></i>
-              </button>
-            </div>
-          </div>
-          <div className="chatlist__items">
-            {allChatss.map((item, index) => {
-              return (
-                <SingleFriendItem
-                  id={item._id}
-                  name={item.name}
-                  message="sent a bond request"
-                  key={index}
-                  socket={props.socket}
-                  friends={item.friends}
-                />
-              );
-            })}
-          </div>
+    <Navbar>
+      <div className="main__chatlist mc ">
+        <div className="ch_f">
+          <h1>Find your Bond</h1>
         </div>
-        <div className="f_r">
-          <div className="f_r_box">
-            <div className="">
-              <div className="">
-                <h1 className="fr_heading">Friend Requests</h1>
+        <div className="main_s_f">
+          <div className="cs_f">
+            <div className="chatList__search">
+              <div className="search_wrap">
+                <input
+                  type="text"
+                  placeholder="Search Here"
+                  value={searchText}
+                  onChange={(e) => {
+                    setSearchText(e.target.value);
+                    props.socket.emit("search-user", e.target.value, user._id);
+                  }}
+                  required
+                />
+                <button className="search-btn"> 
+                  <i style={{ color: "darkGreen" }} className="fa fa-search"></i>
+                </button>
               </div>
-              {friendRequests.map((item, index) => {
+            </div>
+            <div className="chatlist__items">
+              {allChatss.map((item, index) => {
                 return (
-                  <div className="flex fr_container">
-                    <div className="fr_img">
-                      <img
-                        className=""
-                        src="https://randomuser.me/api/portraits/men/20.jpg"
-                        alt="user image"
-                      />
-                    </div>
-                    <div className="">
-                      <div className="fr_details">
-                        <span className="heading">{item.name}</span>
-                        <span className="message">Sent you a bond request</span>
-                      </div>
-                      <div className="fr_action">
-                        <button
-                          className="accept"
-                          onClick={(e) => {
-                            onAccept(item._id);
-                          }}
-                        >
-                          Accept
-                        </button>
-                        <button
-                          className="decline"
-                          onClick={(e) => {
-                            onDecline(item._id);
-                          }}
-                        >
-                          Decline
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  <SingleFriendItem
+                    id={item._id}
+                    name={item.name}
+                    message="sent a bond request"
+                    key={index}
+                    socket={props.socket}
+                    friends={item.friends}
+                  />
                 );
               })}
             </div>
           </div>
+          <div className="f_r">
+            <div className="f_r_box">
+              <div className="">
+                <div className="">
+                  <h1 className="fr_heading">Friend Requests</h1>
+                </div>
+                {friendRequests.map((item, index) => {
+                  return (
+                    <div className="flex fr_container">
+                      <div className="fr_img">
+                        <img
+                          className=""
+                          src="https://randomuser.me/api/portraits/men/20.jpg"
+                          alt="user image"
+                        />
+                      </div>
+                      <div className="">
+                        <div className="fr_details">
+                          <span className="heading">{item.name}</span>
+                          <span className="message">Sent you a bond request</span>
+                        </div>
+                        <div className="fr_action">
+                          <button
+                            className="accept"
+                            onClick={(e) => {
+                              onAccept(item._id);
+                            }}
+                          >
+                            Accept
+                          </button>
+                          <button
+                            className="decline"
+                            onClick={(e) => {
+                              onDecline(item._id);
+                            }}
+                          >
+                            Decline
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </Navbar>
   );
+
 }
+
 export default Friends;

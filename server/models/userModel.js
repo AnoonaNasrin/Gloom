@@ -27,9 +27,9 @@ const userSchema = new mongoose.Schema({
       status: {
         type: String,
       },
-      blocked:{
+      blocked: {
         type: Boolean,
-        default:false
+        default: false
       },
     },
   ],
@@ -38,6 +38,9 @@ const userSchema = new mongoose.Schema({
       type: String,
     },
   ],
+  avatar: {
+    type: String,
+  }
 });
 
 module.exports = mongoose.model(collection.userModel, userSchema);

@@ -8,7 +8,7 @@ import ForgetPassword from "./components/Auth/Forget";
 import Friends from "./components/Friends/Friends";
 import Chat from "./components/Chat/Chat";
 import Profile from "./components/Profile/Profile";
-import FriendsListing from "./components/Profile/FriendsList";
+import FriendsListing from "./components/Profile/component/FriendsList";
 import VideoScreen from "./components/Chat/components/Video/Video"
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
