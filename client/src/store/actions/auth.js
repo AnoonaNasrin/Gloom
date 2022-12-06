@@ -9,7 +9,7 @@ export const login = (params, navigate) => {
             const data = await AuthService.login(params)
             dispatch({ type: LOGIN, payload: data })
             if (data.status == true) {
-                navigate('/')
+                navigate(`/profile/${data._id}`);
                 return data
             } else {
                 return data
@@ -27,7 +27,7 @@ export const registers = (params, navigate) => {
             const data = await AuthService.register(params)
             dispatch({ type: REGISTER, payload: data })
             if (data.status == true) {
-                localStorage.setItem('token',data.token)
+                localStorage.setItem('token', data.token)
                 navigate('/')
                 return data
             } else {

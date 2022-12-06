@@ -178,7 +178,7 @@ export default function ChatContent(props) {
           <div className="current-chatting-user">
             <Avatar
               isOnline="active"
-              image="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU"
+              image={user.avatar}
             />
             <p>{user.name}</p>
           </div>
@@ -203,7 +203,7 @@ export default function ChatContent(props) {
           </div>
         </div>
       </div>
-      <div className="content__body">
+      <div style={{}} className="content__body">
         <div className="chat__items">
           {chatList.map((itm, index) => {
             return (

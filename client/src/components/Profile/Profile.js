@@ -20,6 +20,8 @@ function Profile(props) {
   const [find, setFind] = useState('')
   const [file, setFile] = useState(null)
   const [image, setImage] = useState('')
+  const [blocked, setBlocked] = useState('')
+
 
   const navigate = useNavigate()
   const user = JSON.parse(localStorage.getItem("user"))
@@ -29,27 +31,32 @@ function Profile(props) {
   };
 
 
-
   const sendImageRequest = async (formData) => {
     const data = await UserService.uploadImg(formData)
     if (data.status == true) {
       console.log(data);
       setUserImage(user._id)
+      toast.success("Succefully changed your profile", { position: "top-center" })
     }
+  }
+
+  const removePhoto = async (userId) => {
+    const data = await UserService.removePhoto(userId)
+    if (data.status == true) {
+      setImage(data.image)
+      console.log(data);
+
+    }
+
   }
 
   const setUserImage = async (userId) => {
     const data = await UserService.userImage(userId)
     if (data.status == true) {
-      console.log(data);
       setImage(data.image)
-      // toast.success("Succefully changed your profile", { position: "top-center" })
+
     }
   }
-
-  // useEffect(() => {
-  //   setUserImage(userId)
-  // })
 
   useEffect(() => {
     if (file) {
@@ -71,6 +78,14 @@ function Profile(props) {
     if (data.status == true) {
       setFind(data.block)
       console.log(find);
+    }
+  }
+
+  const blockCount = async (userId) => {
+    const data = await UserService.blockCount(userId)
+    if (data.status == true) {
+      setBlocked(data.block)
+      console.log(blocked);
     }
   }
 
@@ -113,11 +128,12 @@ function Profile(props) {
   useEffect(() => {
     findBlock(user._id, userId)
     friendsToatal(userId)
+    blockCount(user._id)
     findUser(userId)
-    if( user._id == userId) setUserImage(user._id)
+    if (user._id == userId) setUserImage(user._id)
     else setUserImage(userId)
     // else setUserImage(userId)
-  },)
+  }, [])
 
   return (
     <Navbar>
@@ -213,7 +229,7 @@ function Profile(props) {
                         {image ?
                           <img className="rounded-circle" style={{ width: "180px", height: "180px", objectFit: "cover" }} src={`http://localhost:4500/${image}`} />
                           :
-                          <img src="https://demos.creative-tim.com/argon-dashboard/assets-old/img/theme/team-4.jpg" className="rounded-circle" />
+                          <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" className="rounded-circle" />
                         }
                       </div>
                     </div>
@@ -231,7 +247,7 @@ function Profile(props) {
                             )}
                             <button style={{ background: "green" }} onClick={() => {
                               navigate('/chat')
-                              props.socket.emit("request-recent", user._id);
+                              props.socket.emit("request-recent", user._id, 1);
                               props.socket.emit("chat-select", userId);
                               props.socket.emit(
                                 "connect-user",
@@ -257,7 +273,7 @@ function Profile(props) {
                           Edit Profile
                           <input onChange={onInputChange} name="photo" type="file" style={{ position: "absolute ", top: "0", left: " 0", width: "100%", height: "100%", opacity: "0" }}></input>
                         </div>
-                        <button className="btn btn-sm btn-default float-right" style={{ background: "green" }}>Remove Profile</button>
+                        <button onClick={() => { removePhoto(user._id) }} className="btn btn-sm btn-default float-right" style={{ background: "green" }}>Remove Profile</button>
                       </>
                     )}
                   </div>
@@ -274,7 +290,7 @@ function Profile(props) {
                         </div>
                         {user._id == userId &&
                           <div>
-                            <span className="heading">10</span>
+                            <span className="heading">{blocked.length}</span>
                             <span className="description">Blocked friends</span>
                           </div>
                         }

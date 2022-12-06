@@ -18,6 +18,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -100,11 +101,23 @@ export default function Navbar({ children }) {
         setOpen(false);
     };
 
+    const user = JSON.parse(localStorage.getItem("user"));
+    let userId = useParams()
+    const navigate = useNavigate()
+
+    const changeNav = (index) => {
+        if (index == 0) return navigate('/profile/'+ user._id)
+        if (index == 1) return navigate('/chat')
+        if (index == 2) return navigate('/friendlist/'+userId)
+        if (index == 3) return navigate('/friends') 
+    }
+
+
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar position="fixed" open={open}>
-                <Toolbar style={{background:"#4fa55d"}}>
+                <Toolbar style={{ background: "#4fa55d" }}>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -117,7 +130,7 @@ export default function Navbar({ children }) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography  variant="h6" noWrap component="div">
+                    <Typography variant="h6" noWrap component="div">
                         GLOOM
                     </Typography>
                 </Toolbar>
@@ -138,6 +151,8 @@ export default function Navbar({ children }) {
                                     justifyContent: open ? 'initial' : 'center',
                                     px: 2.5,
                                 }}
+
+                                onClick={(e) => { changeNav(index) }}
                             >
                                 <ListItemIcon
                                     sx={{
@@ -145,6 +160,7 @@ export default function Navbar({ children }) {
                                         mr: open ? 3 : 'auto',
                                         justifyContent: 'center',
                                     }}
+
                                 >
                                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                                 </ListItemIcon>

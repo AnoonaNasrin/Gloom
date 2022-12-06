@@ -66,7 +66,7 @@ function Friends(props) {
                   }}
                   required
                 />
-                <button className="search-btn"> 
+                <button className="search-btn">
                   <i style={{ color: "darkGreen" }} className="fa fa-search"></i>
                 </button>
               </div>
@@ -81,6 +81,7 @@ function Friends(props) {
                     key={index}
                     socket={props.socket}
                     friends={item.friends}
+                    image={item.avatar}
                   />
                 );
               })}
@@ -96,11 +97,15 @@ function Friends(props) {
                   return (
                     <div className="flex fr_container">
                       <div className="fr_img">
+                        {item.avatar ? 
                         <img
                           className=""
-                          src="https://randomuser.me/api/portraits/men/20.jpg"
-                          alt="user image"
-                        />
+                          src= {`http://localhost:4500/${item.avatar}`}
+                        /> :
+                        <img
+                        className=""
+                        src= "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"/>
+                        } 
                       </div>
                       <div className="">
                         <div className="fr_details">
@@ -136,7 +141,7 @@ function Friends(props) {
       </div>
     </Navbar>
   );
-
 }
 
-export default Friends;
+
+export default Friends

@@ -30,14 +30,20 @@ export default function SingleFriendItem(props) {
   return (
     <div className="flex fr_container" style={{ marginTop: "1rem" }}>
       <div className="fr_img">
-        <img
-          onClick={(e) => {
-            navigate("/profile/" + props.id)
-          }}
-          className=""
-          src="https://randomuser.me/api/portraits/men/20.jpg"
-          alt="user image"
-        />
+
+        {props.image ?
+          <img
+            onClick={(e) => {
+              navigate("/profile/" + props.id)
+            }}
+            className=""
+            src={`http://localhost:4500/${props.image}`} /> :
+          <img
+            onClick={(e) => {
+              navigate("/profile/" + props.id)
+            }}
+            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" />
+        }
       </div>
       <div className="">
         <div className="fr_details">

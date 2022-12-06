@@ -20,7 +20,7 @@ const SocketServer = (server) => {
         { $set: { activeStatus: "online" } }
       );
 
-      socket.on("request-recent", async (id) => {
+      socket.on("request-recent", async (id, factor) => {
         const recentChats = await userModel.aggregate([
           {
             $match: {
@@ -108,6 +108,7 @@ const SocketServer = (server) => {
               createdAt: 1,
               name: "$user.name",
               email: "$user.email",
+              avatar: "$user.avatar"
             },
           },
           {
@@ -116,7 +117,43 @@ const SocketServer = (server) => {
             },
           },
         ]);
-        socket.emit("recent-sent", recentChats);
+
+        const blockedId = await userModel.aggregate([{
+          $match: {
+            _id: ObjectId(id),
+          }
+        },
+        {
+          $unwind: {
+            path: "$friends"
+          }
+        },
+        {
+          $project: {
+            _id: 0,
+            userId: "$friends.user",
+            blocked: "$friends.blocked"
+          }
+        },
+        {
+          $match: {
+            blocked: true
+          }
+        },])
+        const blocked = blockedId.map((e) => e.userId.toString())
+        // console.log(recentChats)
+        // const recent = recentChats.filter((e) => blockedId.find((d) => d.userId == e._id))
+        if (blockedId.length > 0) {
+          console.log(blocked)
+
+          const recent = recentChats.filter((e) => {
+            return !blocked.includes(e._id.toString())
+          })
+          // console.log(recent, blockedId, recentChats);
+          socket.emit("recent-sent", recent, factor);
+        } else {
+          socket.emit("recent-sent", recentChats, factor)
+        }
       });
 
       socket.on("get-messages", async (user, other) => {
@@ -178,6 +215,51 @@ const SocketServer = (server) => {
           users.filter((e) => e._id != id)
         );
       });
+
+      socket.on("search-friends", async (id, search) => {
+        console.log(id, search);
+        const exp = new RegExp(search, "i");
+        const friends = await userModel.aggregate([{
+          $match: {
+            _id: ObjectId(id)
+          }
+        },
+        {
+          $unwind: {
+            path: "$friends"
+          }
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "friends.user",
+            foreignField: "_id",
+            as: "use"
+          }
+        },
+        {
+          $project: {
+            _id: 0,
+            block: "$friends.blocked",
+            status: "$friends.status",
+            use: {
+              $arrayElemAt: ["$use", 0]
+            }
+          }
+        },
+        {
+          $project: {
+            block: 1,
+            status: 1,
+            _id: "$use._id",
+            name: "$use.name",
+            avatar: "$use.avatar"
+          }
+        }])
+        const friend = friends.filter((e) => e.name.match(exp) && e.status == "accepted")
+        console.log(friend);
+        socket.emit("friend-list", friend)
+      })
 
       socket.on("chat-select", async (id) => {
         if (id != "" && id != null) {
@@ -279,6 +361,7 @@ const SocketServer = (server) => {
               _id: "$user._id",
               number: "$user.number",
               activeStatus: "$user.activeStatus",
+              avatar: "$user.avatar"
             },
           },
         ]);

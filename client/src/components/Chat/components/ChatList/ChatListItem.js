@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Avatar from "./Avatar";
 import { v4 as uuid4 } from "uuid";
 
+
 export default function ChatListItem(props) {
   const user = JSON.parse(localStorage.getItem("user"));
 

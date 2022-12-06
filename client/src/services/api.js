@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-    baseURL:"http://localhost:4500",
+    baseURL:"https://www.gloomchat.ml",
     headers:{
         'Accept': 'application/json'
     }

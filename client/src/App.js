@@ -50,7 +50,7 @@ function App() {
           element={<VideoScreen socket={socket} />}
         />
         <Route path="/profile/:userId" element={<Profile socket={socket} />} />
-        <Route path="/friendlist" element={<FriendsListing/>}/>
+        <Route path="/friendlist/:userId" element={<FriendsListing socket={socket}/>}/>
       </Routes>
       <ToastContainer />
     </BrowserRouter>

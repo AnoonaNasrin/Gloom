@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import AuthService from "../../services/authServices";
-
 import { login } from "../../store/actions/auth";
 import { useDispatch } from "react-redux";
 
@@ -13,10 +12,14 @@ import "./Auth.css";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
+
     const token = localStorage.getItem("token");
     if (token) {
-      navigate("/");
+      const user = JSON.parse(localStorage.getItem('user'))
+      console.log(user)
+      navigate(`/profile/${user._id}`);
     }
   }, []);
   const {

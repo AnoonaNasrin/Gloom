@@ -1,10 +1,14 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "./Video.css";
 import Peer from "peerjs";
 
 export default function VideoScreen(props) {
-  const { roomId } = useParams();
+  const { roomId } = useParams()
+  const navigate = useNavigate("")
+
+  const [audio, setAudio] = useState(true)
+  const [video, setVideo] = useState(true)
 
   const iconClick = (e) => {
     e.target.classList.toggle("active");
@@ -15,6 +19,39 @@ export default function VideoScreen(props) {
     }
   };
 
+  const muteClick = (e) => {
+    e.target.classList.toggle("active");
+    // e.target.querySelector(".icon").classList.toggle("active");
+    if (e.target.classList.contains("button-cam-element")) {
+      const camElement = document.querySelector(".cam-container");
+      camElement.classList.toggle("disabled");
+      setAudio(!audio)
+      console.log(audio);
+    }
+  }
+
+  const videoPause = (e) => {
+    e.target.classList.toggle("active");
+    // e.target.querySelector(".icon").classList.toggle("active");
+    if (e.target.classList.contains("button-cam-element")) {
+      const camElement = document.querySelector(".cam-container");
+      camElement.classList.toggle("disabled");
+      setVideo(!video)
+      console.log(video);
+    }
+  }
+
+  const videoCallCut = (e) => {
+    e.target.classList.toggle("active")
+    if (e.target.classList.contains("button-cam-element")) {
+      const camElement = document.querySelector(".cam-container");
+      camElement.classList.toggle("disabled")
+    }
+    setVideo(false)
+    setAudio(false)
+    navigate(-1)
+  }
+
   useEffect(() => {
 
     const userVideo = document.getElementById("user-video");
@@ -22,8 +59,8 @@ export default function VideoScreen(props) {
 
     navigator.mediaDevices
       .getUserMedia({
-        audio: true,
-        video: true,
+        audio: audio,
+        video: video,
       })
       .then((stream) => {
         const peer = new Peer(undefined, {
@@ -73,7 +110,7 @@ export default function VideoScreen(props) {
       <div className="fullscreen-media-container video overlay">
         <video id="friend-video" autoPlay playsInline muted loop></video>
         <div className="overlay-content-container">
-          <div className="partner-text-container">
+          <div className="partner-tex7t-container">
             <button className="button-mic-element size-s">
               <span className="icon icon-mic-inactive">
                 <svg
@@ -111,7 +148,7 @@ export default function VideoScreen(props) {
           </div>
           <div className="ui-container">
             <div className="navigation-controls-container">
-              <button className="button-mic-element switch" onClick={iconClick}>
+              <button className="button-mic-element switch" style={{ width: "44px" }} onClick={muteClick}>
                 <span
                   className="icon icon-mic-active"
                   onClick={(e) => {
@@ -142,7 +179,7 @@ export default function VideoScreen(props) {
                   </svg>
                 </span>
               </button>
-              <button className="button-cam-element switch" onClick={iconClick}>
+              <button className="button-cam-element switch" style={{ width: "44px" }} onClick={videoPause}>
                 <span className="icon icon-cam-active">
                   <svg
                     width="14"
@@ -168,30 +205,14 @@ export default function VideoScreen(props) {
                   </svg>
                 </span>
               </button>
-              <button className="button-share-element" onClick={iconClick}>
+              <button className="button-share-element" style={{ width: "44px" }} onClick={videoCallCut}>
                 <span className="icon icon-share">
-                  <svg
-                    width="14"
-                    height="13"
-                    viewBox="0 0 14 13"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      x="1"
-                      y="1"
-                      width="12"
-                      height="8"
-                      rx="2"
-                      stroke="white"
-                      strokeWidth="1.5"
-                      strokeLinejoin="round"
-                    />
+                  <svg height={11} width={24} xmlns="http://www.w3.org/2000/svg">
+                    <title />
                     <path
-                      d="M3 12H11"
-                      stroke="white"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
+                      d="M12 2.5c-1.6 0-3.1.3-4.6.7v3.1c0 .4-.2.7-.6.9-1 .5-1.9 1.1-2.7 1.9-.2.2-.4.3-.7.3-.3 0-.5-.1-.7-.3L.2 6.6c-.1-.2-.2-.4-.2-.7 0-.3.1-.5.3-.7C3.3 2.3 7.5.5 12 .5c4.5 0 8.7 1.8 11.7 4.7.2.2.3.4.3.7 0 .3-.1.5-.3.7l-2.5 2.5c-.2.2-.4.3-.7.3-.3 0-.5-.1-.7-.3-.8-.7-1.7-1.4-2.7-1.9-.3-.2-.6-.5-.6-.9V3.2c-1.4-.4-2.9-.7-4.5-.7Z"
+                      fill="white"
+                      fillRule="evenodd"
                     />
                   </svg>
                 </span>

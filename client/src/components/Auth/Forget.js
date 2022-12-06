@@ -20,10 +20,7 @@ const ForgetPassword = () => {
             localStorage.removeItem("email")
             if (data.status == true) {
                 navigate('/login')
-            } else {
-                console.log("ghhhhhh");
             }
-
         } catch (err) {
             console.log(err);
         }

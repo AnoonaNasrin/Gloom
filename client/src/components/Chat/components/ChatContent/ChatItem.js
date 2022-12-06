@@ -14,7 +14,6 @@ export default function ChatItem(props) {
           <span>Seen 1.03PM</span>
         </div>
       </div>
-      <Avatar isOnline="active" image={props.image} />
     </div>
   );
 }

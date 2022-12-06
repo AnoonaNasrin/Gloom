@@ -531,18 +531,18 @@ a>code {
 
 .frm-control::-ms-input-placeholder {
   opacity: 1;
-  color: #adb5bd;
+  /* color: #adb5bd; */
 }
 
 .frm-control::placeholder {
   opacity: 1;
-  color: #adb5bd;
+  
 }
 
 .frm-control:disabled,
 .frm-control[readonly] {
   opacity: 1;
-  background-color: #e9ecef;
+  /* background-color: #e9ecef; */
 }
 
 textarea.form-control {
@@ -1664,7 +1664,7 @@ a.text-white:focus {
 .frm-control-label {
   font-size: .875rem;
   font-weight: 600;
-  color: #e2e7f4;
+  /* color: #e2e7f4; */
 }
 
 .frm-control {

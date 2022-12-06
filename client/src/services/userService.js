@@ -60,5 +60,34 @@ const UserService = {
             throw er
         }
     }
+    ,
+
+    friendList: async (userId) => {
+        try {
+            const { data } = await API.get('/friendlist/' + userId)
+            return data
+        } catch (er) {
+            throw er
+        }
+    }
+    ,
+    
+    blockCount: async (userId) => {
+        try {
+            const { data } = await API.get('/blockcount/' + userId)
+            return data
+        } catch (err) {
+            throw err
+        }
+    },
+
+    removePhoto: async (userId) => {
+        try {
+            const { data } = await API.post('/remove', { userId: userId })
+            return data
+        } catch (er) {
+            throw er
+        }
+    }
 }
 export default UserService;
