@@ -120,7 +120,7 @@ export default function VideoScreen(props) {
   return (
     <section className="section-container">
       <div className="fullscreen-media-container video overlay">
-        <video id="friend-video" autoPlay playsInline muted loop></video>
+        <video id="friend-video" autoPlay playsInline loop></video>
         <div className="overlay-content-container">
           <div className="partner-tex7t-container">
             <button className="button-mic-element size-s">
@@ -241,7 +241,6 @@ export default function VideoScreen(props) {
                 src="https://www.dropbox.com/s/se8r4svvnt2qpfu/example-video-2.mp4?raw=1"
                 autoPlay
                 playsInline
-                muted
                 loop
               ></video>
             </div>
