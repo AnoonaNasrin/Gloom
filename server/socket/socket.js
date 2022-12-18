@@ -419,6 +419,10 @@ const SocketServer = (server) => {
         socket.to(userId).emit("name")
       });
 
+      socket.on("call-cut",(roomId)=> {
+        socket.to(roomId).emit("video-cut")
+      })
+
       socket.on("show-friends", async (id) => {
         const users = await userModel.aggregate([
           {
@@ -449,5 +453,7 @@ const SocketServer = (server) => {
     });
   });
 };
+
+
 
 module.exports = SocketServer;

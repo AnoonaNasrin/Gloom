@@ -19,7 +19,7 @@ exports.login = async (req, res) => {
 
         //find user//
         const user = await userModel.findOne({ email: email }).lean()
-         console.log(user);
+        console.log(user);
         //check if user find//
         if (!user) return res.json({ message: "user not found", status: false })
 
@@ -109,7 +109,7 @@ exports.sendEmailOtp = async (req, res) => {
     try {
         //found user registered or not //
         const email = await userModel.findOne({ email: req.body.email })
-         console.log(email);
+        console.log(email);
         if (!email) return res.json({ message: "User not registered", status: false })
 
         const generateOtp = randomOtp();

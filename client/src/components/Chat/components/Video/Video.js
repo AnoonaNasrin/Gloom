@@ -49,8 +49,20 @@ export default function VideoScreen(props) {
     }
     setVideo(false)
     setAudio(false)
+    localStorage.setItem("reload","true")
     navigate(-1)
+    props.socket.emit("call-cut", roomId)
   }
+  
+  useEffect(()=>{
+    props.socket.on("video-cut",() =>{
+      setVideo(false)
+      setAudio(false)
+      localStorage.setItem("reload","true")
+      navigate(-1)
+     }) 
+  },[])
+
 
   useEffect(() => {
 
@@ -66,7 +78,7 @@ export default function VideoScreen(props) {
         const peer = new Peer(undefined, {
           path: "/peerjs",
           host: "/",
-          port: "4500",
+          port: "443",
         });
 
         peer.on("open", (id) => {
@@ -101,7 +113,7 @@ export default function VideoScreen(props) {
       });
 
     props.socket.on("video-join", (userId) => {
-      console.log("gfhhgjgh outside", userId);
+      console.log("video join", userId);
     });
   });
 

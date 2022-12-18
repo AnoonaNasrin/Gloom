@@ -9,15 +9,19 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import MenuIcon from '@mui/icons-material/Menu';
+import Message from '@mui/icons-material/ChatBubble';
+import Profile from '@mui/icons-material/AccountCircle';
+import FriendList from '@mui/icons-material/Diversity3';
+import Friends from '@mui/icons-material/PersonAdd';
+import Logout from '@mui/icons-material/Logout';
+
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -105,11 +109,28 @@ export default function Navbar({ children }) {
     let userId = useParams()
     const navigate = useNavigate()
 
+    function logOut() {
+        localStorage.removeItem("user")
+        navigate('/login')
+    }
+
     const changeNav = (index) => {
-        if (index == 0) return navigate('/profile/'+ user._id)
-        if (index == 1) return navigate('/chat')
-        if (index == 2) return navigate('/friendlist/'+userId)
-        if (index == 3) return navigate('/friends') 
+        if (index == 0) return navigate('/profile/' + user._id)
+        if (index == 1) {
+            localStorage.setItem("reload", "true")
+            return navigate('/chat')
+        }
+        if (index == 2) return navigate('/friendlist/' + userId)
+        if (index == 3) return navigate('/friends')
+        if(index == 4) return  logOut()
+    }
+
+    const changeIccon = (index) => {
+        if (index == 0) return <Profile />
+        if (index == 1) return <Message />
+        if (index == 2) return <FriendList />
+        if (index == 3) return <Friends />
+        if (index == 4) return <Logout/>
     }
 
 
@@ -128,7 +149,7 @@ export default function Navbar({ children }) {
                             ...(open && { display: 'none' }),
                         }}
                     >
-                        <MenuIcon />
+                    <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
                         GLOOM
@@ -143,7 +164,7 @@ export default function Navbar({ children }) {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {['Profile', 'Chat', 'Bonding', 'Friends'].map((text, index) => (
+                    {['Profile', 'Chat', 'Bonding', 'Friends','Logout'].map((text, index) => (
                         <ListItem key={text} disablePadding sx={{ display: 'block' }}>
                             <ListItemButton
                                 sx={{
@@ -160,14 +181,20 @@ export default function Navbar({ children }) {
                                         mr: open ? 3 : 'auto',
                                         justifyContent: 'center',
                                     }}
-
                                 >
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                    { changeIccon(index) }
                                 </ListItemIcon>
                                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
                             </ListItemButton>
                         </ListItem>
                     ))}
+                    {/* <ListItem key={'Logout'} disablePadding>
+                        <ListItemButton onClick={() => {
+                            logOut()
+                        }}>
+                            <ListItemText primary={'Logout'} />
+                        </ListItemButton>
+                    </ListItem> */}
                 </List>
                 <Divider />
                 {/* <List>

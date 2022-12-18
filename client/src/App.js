@@ -19,7 +19,7 @@ import Navbar from "./components/Navbar/Navbar";
 
 function App() {
 
-  const socket = io("http://localhost:4500");
+  const socket = io("https://www.gloomchat.ml");
 
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -50,7 +50,7 @@ function App() {
           element={<VideoScreen socket={socket} />}
         />
         <Route path="/profile/:userId" element={<Profile socket={socket} />} />
-        <Route path="/friendlist/:userId" element={<FriendsListing socket={socket}/>}/>
+        <Route path="/friendlist/:userId" element={<FriendsListing socket={socket} />} />
       </Routes>
       <ToastContainer />
     </BrowserRouter>

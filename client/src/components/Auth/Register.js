@@ -13,9 +13,9 @@ function Register() {
 
   const navigate = useNavigate();
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      navigate("/");
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      navigate(`/profile/${user._id}`);
     }
   });
 

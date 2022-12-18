@@ -8,9 +8,11 @@ import { useNavigate } from "react-router-dom";
 
 const Chat = (props) => {
   const navigate = useNavigate()
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const [state, setState] = useState(true)
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
     if (props.socket) {
       props.socket.on("joined", (id) => {
         props.socket.emit("request-recent", user._id, 0);
@@ -19,7 +21,15 @@ const Chat = (props) => {
   });
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const reload = localStorage.getItem("reload")
+    if(reload == "true") {
+      window.location.reload(true)
+      localStorage.setItem("reload" ,"false")
+    }
+  }, [])
+
+
+  useEffect(() => {
     if (user) {
       navigate('/chat')
     } else {

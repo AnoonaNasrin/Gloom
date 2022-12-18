@@ -102,7 +102,7 @@ export default function ChatContent(props) {
 
     props.socket.on("name", () => {
       sHandleClose()
-      console.log("fkl");
+      handleClose()
     })
   }, []);
 
@@ -144,32 +144,7 @@ export default function ChatContent(props) {
       setMessage("");
       scrollToBottom();
     }
-
-  };
-
-  // useEffect(() => {
-  //   window.addEventListener("keydown", (e) => {
-  //     if (e.keyCode == 13) {
-  //       if (message != "") {
-  //         console.log(message);
-  //         // props.socket.emit("send-message", message, sender._id, user._id);
-  //         setChatList([
-  //           ...chatList,
-  //           {
-  //             key: key,
-  //             type: "",
-  //             msg: message,
-  //             image: "",
-  //           },
-  //         ]);
-  //         setKey(key + 1);
-  //         setMessage("");
-  //         scrollToBottom();
-  //       }
-  //     }
-  //   });
-  //   scrollToBottom();
-  // }, [message]);
+   };
 
   return (
     <div className="main__chatcontent">
@@ -247,10 +222,6 @@ export default function ChatContent(props) {
         >
           <DialogTitle>{"Incoming Video calling"}</DialogTitle>
           <DialogContent>
-            {/* <DialogContentText id="alert-dialog-slide-description">
-              Let Google help apps determine location. This means sending
-              anonymous location data to Google, even when no apps are running.
-            </DialogContentText> */}
           </DialogContent>
           <DialogActions>
             <Button onClick={onDegree}>Decline</Button>
@@ -269,8 +240,9 @@ export default function ChatContent(props) {
           <DialogTitle>{"Ongoing Video Call "}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              Ringing
+             Ringing 
             </DialogContentText>
+            <Button onClick={()=>{onDegree()}}>Decline</Button>
           </DialogContent>
           {/* <DialogActions>
             <Button onClick={sHandleClose}>Disagree</Button>
