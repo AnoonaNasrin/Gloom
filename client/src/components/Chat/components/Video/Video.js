@@ -76,8 +76,8 @@ export default function VideoScreen(props) {
       })
       .then((stream) => {
         const peer = new Peer(undefined, {
-          path: "/peerjs",
-          host: "https://www.gloomchat.ml",
+          path: "https://www.gloomchat.ml/peerjs",
+          host: "/",
           port: "443",
           secure: true
         });
