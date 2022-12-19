@@ -77,8 +77,8 @@ export default function VideoScreen(props) {
       .then((stream) => {
         const peer = new Peer(undefined, {
           path: "/peerjs",
-          host: "https://www.gloomchat.ml",
-          port: "443",
+          host: "/",
+          port: "https://www.gloomchat.ml",
         });
 
         peer.on("open", (id) => {
@@ -241,6 +241,7 @@ export default function VideoScreen(props) {
                 src="https://www.dropbox.com/s/se8r4svvnt2qpfu/example-video-2.mp4?raw=1"
                 autoPlay
                 playsInline
+                muted
                 loop
               ></video>
             </div>
