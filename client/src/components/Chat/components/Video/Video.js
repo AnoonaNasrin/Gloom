@@ -76,7 +76,7 @@ export default function VideoScreen(props) {
       })
       .then((stream) => {
         const peer = new Peer(undefined, {
-          path: "/peerjs",
+          // path: "/peerjs",
           host: "/",
           port: "443",
           secure: true
